@@ -1,6 +1,7 @@
 const User = require("../models/user.model");
 const Role = require("../models/role.model");
 const Post = require("../models/post.model");
+const Category = require("../models/category.model");
 const PagedModel = require("../helpers/PagedModel");
 
 const getPagingUser = () => {};
@@ -58,7 +59,9 @@ const getPagingCTV = async (req, res) => {
           status: 2,
           "receive.user": item._id.toString(),
         }).countDocuments();
-        return {...item, acceptPost}
+
+        const category = await Category.find({users: item._id})
+        return {...item, acceptPost, category}
       })
     );
     console.log(dataWithPost)
@@ -93,7 +96,7 @@ const getAllCTV = async (req, res) => {
       role: role._id.toString(),
     };
 
-    const data = await User.find(searchQuery).select("username");
+    const data = await User.find(searchQuery).select("username _id");
 
     return res.json({ data, success: true });
   } catch (error) {
