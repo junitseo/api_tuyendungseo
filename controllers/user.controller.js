@@ -20,7 +20,7 @@ const getPagingCTV = async (req, res) => {
     const role = await Role.findOne({ name: { $regex: "CTV" } });
     let searchQuery = {
       role: role._id.toString(),
-      status: 0,
+      // status: 0,
     };
 
     if (search) {
@@ -116,7 +116,7 @@ const updateCTV = async (req, res) => {
 
     const updateUser = await User.findOneAndUpdate(
       { _id: id },
-      { status },
+      { status, isVerify },
       { new: true }
     );
 

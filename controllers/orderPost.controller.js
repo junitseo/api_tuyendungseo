@@ -5,6 +5,7 @@ const Post = require("../models/post.model");
 const moment = require("moment");
 const lodash = require("lodash");
 const { checkExpiresPost } = require("./post.controller");
+
 const getRandomOrderForPostByCate = async (req, res) => {
   try {
     await checkExpiresPost();
